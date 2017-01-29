@@ -6,7 +6,7 @@ if exists("g:yapf_format_loaded")
   finish
 endif
 
-if ! has('python')
+if ! has('python') && ! has('python3')
   echohl WarningMsg |
         \ echomsg "vim-yapf-format requires vim compiled with python support" |
         \ echohl None
@@ -34,8 +34,9 @@ command! -range YapfFormat <line1>,<line2>call YapfFormat()
 function! YapfFormat() range
   if ! s:appended_yapf_path
     if exists("g:yapf_format_yapf_location")
-      py import sys
-      exe 'py sys.path.append("' . expand(g:yapf_format_yapf_location) . '")'
+      let pyx = 'py' ? has('python') : 'py3'
+      execute pyx . ' import sys'
+      exe pyx . ' sys.path.append("' . expand(g:yapf_format_yapf_location) . '")'
     endif
     let s:appended_yapf_path = 1
   endif

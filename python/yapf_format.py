@@ -5,6 +5,10 @@ import sys
 import os
 import vim
 
+if sys.version_info >= (3, 0):
+    def unicode(x, _):
+        return x
+
 try:
     from yapf.yapflib import yapf_api, file_resources, style
     _YAPF_IMPORTED = True

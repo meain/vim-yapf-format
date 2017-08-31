@@ -34,7 +34,7 @@ command! -range YapfFormat <line1>,<line2>call YapfFormat()
 function! YapfFormat() range
   if ! s:appended_yapf_path
     if exists("g:yapf_format_yapf_location")
-      let pyx = 'py' ? has('python') : 'py3'
+      let pyx = has('python') ? 'py' : 'py3'
       execute pyx . ' import sys'
       exe pyx . ' sys.path.append("' . expand(g:yapf_format_yapf_location) . '")'
     endif
@@ -57,7 +57,7 @@ function! YapfFormat() range
         \ !!g:yapf_format_allow_out_of_range_changes :
         \ 0
 
-  exe a:firstline . ',' . a:lastline . 'pyf ' . s:yapf_format_script
+  exe a:firstline . ',' . a:lastline . (has('python') ? 'pyf ' : 'py3f ') . s:yapf_format_script
 
 
   if exists('l:error_type')

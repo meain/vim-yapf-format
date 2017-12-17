@@ -74,7 +74,7 @@ function! YapfFormat() range
     endif
     return 1
   endif
-  echon "Used style: " . l:used_style . " "
+  " echon "Used style: " . l:used_style . " "
   return 0
 endfunction
 
